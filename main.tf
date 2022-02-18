@@ -32,7 +32,7 @@ resource "aws_security_group" "web-sg" {
   }
 }
 
-resource "aws_instance" "web" {
+/* resource "aws_instance" "web" {
   ami                    = var.ami_linux
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
@@ -42,6 +42,30 @@ resource "aws_instance" "web" {
               echo "Hello, World Alex" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
+} */
+
+module "ec2_instances" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "2.12.0"
+
+  name           = "my-ec2-web"
+  instance_count = 1
+
+  ami                    = var.ami_linux
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.web-sg.id]
+  subnet_id              = module.vpc.public_subnets[0]
+
+  user_data = <<-EOF
+            #!/bin/bash
+            echo "Hello, World Alex" > index.html
+            nohup busybox httpd -f -p 8080 &
+            EOF
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
 
 module "vpc" {
