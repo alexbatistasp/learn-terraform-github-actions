@@ -22,7 +22,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "web-sg" {
-  name   = "sg-web"
+  name   = "allow_tcp_web"
   vpc_id = module.vpc.vpc_id
   ingress {
     from_port   = 8080
@@ -33,7 +33,7 @@ resource "aws_security_group" "web-sg" {
 }
 
 resource "aws_instance" "web" {
-  ami                    = "ami-090bc08d7ae1f3881"
+  ami                    = var.ami_linux
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
 

@@ -44,3 +44,9 @@ variable "vpc_tags" {
     Environment = "dev"
   }
 }
+
+variable "ami_linux" {
+  description = "Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type"
+  type        = string
+  default     = "ami-0341aeea105412b57"
+}
