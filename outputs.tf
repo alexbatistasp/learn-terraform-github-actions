@@ -5,5 +5,5 @@ output "vpc_public_subnets" {
 }
 
 output "web-address" {
-  value = "${aws_instance.web.public_dns}:8080"
+  value = "${module.ec2_instances.public_dns}:8080"
 }
