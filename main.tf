@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "aws" {
-    region  = "us-west-2"
+  region = "us-west-2"
 }
 
 resource "aws_security_group" "web-sg" {
