@@ -4,6 +4,7 @@ output "vpc_public_subnets" {
   value       = module.vpc.public_subnets
 }
 
-output "web-address" {
-  value = "${module.ec2_instances.public_dns}:8080"
+output "ec2-dns" {    
+  description = "Public DNS addresses of EC2 instances"  
+  value = module.ec2.public_dns
 }

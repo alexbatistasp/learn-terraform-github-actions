@@ -44,7 +44,7 @@ resource "aws_security_group" "web-sg" {
               EOF
 } */
 
-module "ec2_instances" {
+module "ec2" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "2.12.0"
 
